@@ -13,11 +13,11 @@ from shutil import rmtree
 from setuptools import find_packages, setup, Command
 
 # Package meta-data.
-NAME = "segmentation_models_pytorch"
+NAME = "segmentation-models-pytorch"
 DESCRIPTION = "Image segmentation models with pre-trained backbones. PyTorch."
-URL = "https://github.com/qubvel/segmentation_models.pytorch"
-EMAIL = "qubvel@gmail.com"
-AUTHOR = "Pavel Yakubovskiy"
+URL = "https://github.com/Yukun-Guo/segmentation-models-pytorch"
+EMAIL = "guoyukn@gmail.com"
+AUTHOR = "Yukun Guo"
 REQUIRES_PYTHON = ">=3.6.0"
 VERSION = None
 
@@ -32,7 +32,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 try:
     with open(os.path.join(here, "requirements.txt"), encoding="utf-8") as f:
         REQUIRED = f.read().split("\n")
-except:
+except Exception:
     REQUIRED = []
 
 # What packages are optional?
