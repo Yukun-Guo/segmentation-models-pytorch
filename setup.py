@@ -15,7 +15,7 @@ from setuptools import find_packages, setup, Command
 # Package meta-data.
 NAME = "segmentation-models-pytorch"
 DESCRIPTION = "Image segmentation models with pre-trained backbones. PyTorch."
-URL = "https://github.com/Yukun-Guo/segmentation-models-pytorch"
+URL = "https://github.com/Yukun-Guo/segmentation_models_pytorch"
 EMAIL = "guoyukn@gmail.com"
 AUTHOR = "Yukun Guo"
 REQUIRES_PYTHON = ">=3.6.0"
