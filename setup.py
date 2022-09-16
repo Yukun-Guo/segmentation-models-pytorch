@@ -13,7 +13,7 @@ from shutil import rmtree
 from setuptools import find_packages, setup, Command
 
 # Package meta-data.
-NAME = "segmentation-models-pytorch"
+NAME = "segmentation_models_pytorch"
 DESCRIPTION = "Image segmentation models with pre-trained backbones. PyTorch."
 URL = "https://github.com/Yukun-Guo/segmentation_models_pytorch"
 EMAIL = "guoyukn@gmail.com"
