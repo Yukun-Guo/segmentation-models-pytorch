@@ -2,7 +2,10 @@ import torch
 import torch.nn as nn
 
 
-def patch_first_conv(model, new_in_channels, default_in_channels=3, pretrained=True):
+def patch_first_conv(model,
+                     new_in_channels,
+                     default_in_channels=3,
+                     pretrained=True):
     """Change first convolution layer input channels.
     In case:
         in_channels == 1 or in_channels == 2 -> reuse original weights
@@ -11,7 +14,8 @@ def patch_first_conv(model, new_in_channels, default_in_channels=3, pretrained=T
 
     # get first conv
     for module in model.modules():
-        if isinstance(module, nn.Conv2d) and module.in_channels == default_in_channels:
+        if isinstance(module,
+                      nn.Conv2d) and module.in_channels == default_in_channels:
             break
 
     weight = module.weight.detach()
@@ -19,8 +23,8 @@ def patch_first_conv(model, new_in_channels, default_in_channels=3, pretrained=T
 
     if not pretrained:
         module.weight = nn.parameter.Parameter(
-            torch.Tensor(module.out_channels, new_in_channels // module.groups, *module.kernel_size)
-        )
+            torch.Tensor(module.out_channels, new_in_channels // module.groups,
+                         *module.kernel_size))
         module.reset_parameters()
 
     elif new_in_channels == 1:
@@ -28,7 +32,9 @@ def patch_first_conv(model, new_in_channels, default_in_channels=3, pretrained=T
         module.weight = nn.parameter.Parameter(new_weight)
 
     else:
-        new_weight = torch.Tensor(module.out_channels, new_in_channels // module.groups, *module.kernel_size)
+        new_weight = torch.Tensor(module.out_channels,
+                                  new_in_channels // module.groups,
+                                  *module.kernel_size)
 
         for i in range(new_in_channels):
             new_weight[:, i] = weight[:, i % default_in_channels]
@@ -44,7 +50,8 @@ def replace_strides_with_dilation(module, dilation_rate):
             mod.stride = (1, 1)
             mod.dilation = (dilation_rate, dilation_rate)
             kh, kw = mod.kernel_size
-            mod.padding = ((kh // 2) * dilation_rate, (kh // 2) * dilation_rate)
+            mod.padding = ((kh // 2) * dilation_rate,
+                           (kw // 2) * dilation_rate)
 
             # Kostyl for EfficientNet
             if hasattr(mod, "static_padding"):

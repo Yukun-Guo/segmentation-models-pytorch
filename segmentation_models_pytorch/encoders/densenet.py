@@ -70,17 +70,19 @@ class DenseNetEncoder(DenseNet, EncoderMixin):
         return [
             nn.Identity(),
             nn.Sequential(self.features.conv0, self.features.norm0,
-                          self.features.relu0),
+                          self.features.relu0),  # 1
             nn.Sequential(
                 self.features.pool0,
                 self.features.denseblock1,
                 TransitionWithSkip(self.features.transition1),
-            ),
+            ),  #1/4
             nn.Sequential(self.features.denseblock2,
-                          TransitionWithSkip(self.features.transition2)),
+                          TransitionWithSkip(self.features.transition2)),  #1/8
             nn.Sequential(self.features.denseblock3,
-                          TransitionWithSkip(self.features.transition3)),
-            nn.Sequential(self.features.denseblock4, self.features.norm5),
+                          TransitionWithSkip(
+                              self.features.transition3)),  #1/16
+            nn.Sequential(self.features.denseblock4,
+                          self.features.norm5),  #1/16
         ]
 
     def forward(self, x):
@@ -102,9 +104,8 @@ class DenseNetEncoder(DenseNet, EncoderMixin):
 
         return features
 
-    def load_state_dict(
-        self, state_dict
-    ):  # sourcery skip: use-getitem-for-re-match-groups, use-named-expression
+    def load_state_dict(self, state_dict):
+        # sourcery skip: use-getitem-for-re-match-groups, use-named-expression
         pattern = re.compile(
             r"^(.*denselayer\d+\.(?:norm|relu|conv))\.((?:[12])\.(?:weight|bias|running_mean|running_var))$"
         )
