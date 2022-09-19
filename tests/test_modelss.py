@@ -20,8 +20,6 @@ arch_names = [
     'DeepLabV3Plus', 'PAN', 'TriNet'
 ]
 
-smp.DeepLabV3
-
 
 @pytest.mark.parametrize("encoder_name", encoder_names)
 @pytest.mark.parametrize("arch_name", arch_names)
